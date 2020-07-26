@@ -24,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -119,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "todolist-frontend"
+    }
+  },
+  "defaultProject": "todolist-frontend",
+  "cli": {
+    "analytics": "c0d43adb-ad5f-49be-8ba6-ed02f185273e"
+  }
 }
