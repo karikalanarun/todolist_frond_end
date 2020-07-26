@@ -6,21 +6,39 @@
           <h5 class="card-title text-center">Sign In</h5>
           <form class="form-signin">
             <div class="form-label-group">
-              <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
               <label for="inputEmail">Email address</label>
+              <input
+                type="email"
+                id="inputEmail"
+                class="form-control"
+                placeholder="Email address"
+                required
+                autofocus
+              />
             </div>
-
+            <br />
             <div class="form-label-group">
-              <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
               <label for="inputPassword">Password</label>
+              <input
+                type="password"
+                id="inputPassword"
+                class="form-control"
+                placeholder="Password"
+                required
+              />
             </div>
-
-            <div class="custom-control custom-checkbox mb-3">
-              <input type="checkbox" class="custom-control-input" id="customCheck1">
-              <label class="custom-control-label" for="customCheck1">Remember password</label>
+            <div class="py-2">
+              <a routerLink="/signup" routerLinkActive="active"
+                >create a new account</a
+              >
             </div>
-            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
-            <hr class="my-4">
+            <button
+              class="btn btn-lg btn-primary btn-block text-uppercase"
+              type="submit"
+            >
+              Sign in
+            </button>
+            <hr class="my-4" />
           </form>
         </div>
       </div>
