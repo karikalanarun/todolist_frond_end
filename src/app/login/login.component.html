@@ -4,38 +4,32 @@
       <div class="card card-signin my-5">
         <div class="card-body">
           <h5 class="card-title text-center">Sign In</h5>
-          <form class="form-signin">
+          <p *ngIf="(email.invalid && (email.touched || email.dirty))">
+            <ngb-alert [dismissible]="false" type="danger">
+              <strong>Error!</strong> Please provide Valid Email
+            </ngb-alert>
+          </p>
+          <p *ngIf="(password.invalid && (password.touched || password.dirty))">
+            <ngb-alert [dismissible]="false" type="danger">
+              <strong>Error!</strong> Please provide Passoword
+            </ngb-alert>
+          </p>
+          <form class="form-signin" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <div class="form-label-group">
               <label for="inputEmail">Email address</label>
-              <input
-                type="email"
-                id="inputEmail"
-                class="form-control"
-                placeholder="Email address"
-                required
-                autofocus
-              />
+              <input type="email" id="inputEmail" class="form-control" placeholder="Email address"
+                formControlName="email" />
             </div>
             <br />
             <div class="form-label-group">
               <label for="inputPassword">Password</label>
-              <input
-                type="password"
-                id="inputPassword"
-                class="form-control"
-                placeholder="Password"
-                required
-              />
+              <input type="password" id="inputPassword" class="form-control" placeholder="Password"
+                formControlName="password" />
             </div>
             <div class="py-2">
-              <a routerLink="/signup" routerLinkActive="active"
-                >create a new account</a
-              >
+              <a routerLink="/signup" routerLinkActive="active">create a new account</a>
             </div>
-            <button
-              class="btn btn-lg btn-primary btn-block text-uppercase"
-              type="submit"
-            >
+            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">
               Sign in
             </button>
             <hr class="my-4" />

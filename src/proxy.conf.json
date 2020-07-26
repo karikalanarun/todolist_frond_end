@@ -1,0 +1,19 @@
+{
+  "/api": {
+    "target": "http://localhost:3000",
+    "secure": false,
+    "pathRewrite": {
+      "^/api": ""
+    },
+    "logLevel": "debug"
+  },
+  "/mock-api": {
+    "target": "https://e1028ed3-7501-49cc-a06f-854688aaab2d.mock.pstmn.io",
+    "secure": false,
+    "pathRewrite": {
+      "^/mock-api": ""
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
