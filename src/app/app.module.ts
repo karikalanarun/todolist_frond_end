@@ -9,6 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { TodoListCreatePopUpComponent } from './todo-list/todo-list-create-pop-up/todo-list-create-pop-up.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     SignupComponent,
     TodoListComponent,
+    TodoListCreatePopUpComponent,
   ],
   imports: [
     BrowserModule,
