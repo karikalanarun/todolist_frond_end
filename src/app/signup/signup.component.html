@@ -4,69 +4,41 @@
       <div class="card card-signin my-5">
         <div class="card-body">
           <h5 class="card-title text-center">REGISTER</h5>
-          <form class="form-signin">
+          <form class="form-signin" [formGroup]="signupForm" (ngSubmit)="submit()">
             <div class="form-label-group mb-1">
               <label for="firstname">First Name</label>
-              <input
-                type="email"
-                id="firstname"
-                class="form-control"
-                placeholder="First name"
-                required
-                autofocus
-              />
+              <input type="text" id="firstname" class="form-control" placeholder="First name"
+                formControlName="first_name" />
             </div>
             <div class="form-label-group mb-1">
               <label for="lastname">Last Name</label>
-              <input
-                type="password"
-                id="lastname"
-                class="form-control"
-                placeholder="Last name"
-                required
-              />
+              <input type="text" id="lastname" class="form-control" placeholder="Last name"
+                formControlName="last_name" />
             </div>
-            <div class="form-label-group mb-1">
+            <div class=" form-label-group mb-1">
               <label for="inputEmail">Email</label>
-              <input
-                type="email"
-                id="inputEmail"
-                class="form-control"
-                placeholder="Email address"
-                required
-                autofocus
-              />
+              <input type="email" id="inputEmail" class="form-control" placeholder="Email address"
+                formControlName="email" />
             </div>
-            <div class="form-label-group mb-1">
+            <!-- <div class="form-label-group mb-1">
               <label for="mobile">Mobile</label>
-              <input
-                type="email"
-                id="mobile"
-                class="form-control"
-                placeholder="Mobile number"
-                required
-                autofocus
-              />
-            </div>
+              <select class="form-control" formControlName="country_code">
+                <option>summa</option>
+                <option>umma</option>
+              </select>
+              <input type="text" id="mobile" class="form-control" placeholder="Mobile number"
+                formControlName="mobile_number" />
+            </div> -->
             <div class="form-label-group mb-1">
               <label for="inputPassword">New Password</label>
-              <input
-                type="password"
-                id="inputPassword"
-                class="form-control"
-                placeholder="New Password"
-                required
-              />
+              <input type="password" id="inputPassword" class="form-control" placeholder="New Password"
+                formControlName="password" />
             </div>
             <div class="mb-2">
-              <a routerLink="/login" routerLinkActive="active"
-                >click here for existing account</a
-              >
+              <a routerLink="/login" routerLinkActive="active">click here for existing account</a>
             </div>
-            <button
-              class="btn btn-lg btn-primary btn-block text-uppercase"
-              type="submit"
-            >
+            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit"
+              [disabled]="signupForm.invalid">
               Sign up
             </button>
             <hr class="my-2" />

@@ -6,7 +6,7 @@ export const isUserLoggedIn: () => boolean = () => {
     return false;
   }
   let current_time = new Date().getTime() / 1000;
-  let exp = jwt_decode(authToken).exp;
+  let exp = (jwt_decode(authToken) as any).exp;
   if (!exp) {
     return true;
   }
