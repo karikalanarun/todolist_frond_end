@@ -59,13 +59,13 @@ input[type="radio"]:not(old) {
 .checklist {
   list-style-type: none;
 }
-.material-icons {
-  margin-top: 2px;
-  color: gray;
-  font-size: 30px;
+.singled {
+  margin-top: -2px;
+  color: white;
+  font-size: 40px;
 }
-.material-icons:hover {
-  color: blue;
+.singled:hover {
+  color: lavender;
   cursor: pointer;
 }
 .modal-header {
@@ -79,4 +79,17 @@ input[type="radio"]:not(old) {
 }
 .modal-content {
   background-color: blue;
+}
+#addInput {
+  background-color: lightslategray;
+  color: white;
+  outline-color: currentColor;
+}
+.listed {
+  color: white;
+  font-size: 30px;
+  margin-top: 3px;
+}
+.checkSize {
+  font-size: large;
 }
