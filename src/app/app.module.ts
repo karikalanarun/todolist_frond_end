@@ -7,7 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TodoListComponent } from './todo-list/todo-list.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { TodoListCreatePopUpComponent } from './todo-list/todo-list-create-pop-up/todo-list-create-pop-up.component';
 
@@ -24,6 +24,7 @@ import { TodoListCreatePopUpComponent } from './todo-list/todo-list-create-pop-u
     AppRoutingModule,
     NgbModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
     JwtModule.forRoot({
       config: {

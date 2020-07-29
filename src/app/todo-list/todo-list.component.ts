@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TodoListCreatePopUpComponent } from './todo-list-create-pop-up/todo-list-create-pop-up.component';
 
 @Component({
@@ -13,5 +13,9 @@ export class TodoListComponent implements OnInit {
   ngOnInit() {
     const modalRef = this.modalService.open(TodoListCreatePopUpComponent);
     // modalRef.componentInstance.name = 'World';
+  }
+
+  openCreateBox() {
+    this.modalService.open(TodoListCreatePopUpComponent);
   }
 }
