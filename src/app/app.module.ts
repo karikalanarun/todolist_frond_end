@@ -11,6 +11,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { TodoListCreatePopUpComponent } from './todo-list/todo-list-create-pop-up/todo-list-create-pop-up.component';
 import { FriendsPopupComponent } from './todo-list/friends-popup/friends-popup.component';
+import { TodoNodeComponent } from './todo-list/todo-list-create-pop-up/todo-node/todo-node.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { FriendsPopupComponent } from './todo-list/friends-popup/friends-popup.c
     TodoListComponent,
     TodoListCreatePopUpComponent,
     FriendsPopupComponent,
+    TodoNodeComponent,
   ],
   imports: [
     BrowserModule,

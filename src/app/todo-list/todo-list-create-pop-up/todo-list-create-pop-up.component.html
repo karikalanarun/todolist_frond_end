@@ -17,7 +17,7 @@
       </div>
     </div>
     <ul>
-      <li class="checklist checkSize" *ngFor="let todo of todos" style="display: flex;">
+      <!-- <li class="checklist checkSize" *ngFor="let todo of todos" style="display: flex;">
         <div class="dropdown ml-3">
           <i class=" material-icons moreVert" data-toggle="dropdown">more_vert</i>
           <div class="dropdown-menu">
@@ -32,6 +32,9 @@
           <li><input type="text" id="addInput" class="form-control" [(ngModel)]="currentTodo" />
           </li>
         </ul>
+      </li> -->
+      <li class="checklist checkSize" *ngFor="let todo of todos" style="display: flex;">
+        <app-todo-node [todo]="todo"></app-todo-node>
       </li>
     </ul>
   </div>
