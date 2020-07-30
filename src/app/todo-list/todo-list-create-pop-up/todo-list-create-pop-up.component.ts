@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TodolistService } from '../todolist.service';
 
-type Todo = { text: String; completed: boolean };
+type Todo = { text: string; completed: boolean };
 type Todos = Todo[];
 
 @Component({
@@ -11,10 +12,14 @@ type Todos = Todo[];
   styleUrls: ['./todo-list-create-pop-up.component.css'],
 })
 export class TodoListCreatePopUpComponent implements OnInit {
-  title: String = 'Here will be the title';
-  currentTodo: String = 'first todo';
+  title = 'Here will be the title';
+  currentTodo: string = 'first todo';
   todos: Todos = [{ text: 'added Todo', completed: true }];
-  constructor(public activeModal: NgbActiveModal) {}
+
+  constructor(
+    public activeModal: NgbActiveModal,
+    private todoListService: TodolistService
+  ) {}
 
   addTodo() {
     console.log('addtodo call aavuthu ::: ', this.currentTodo.trim());
@@ -39,6 +44,13 @@ export class TodoListCreatePopUpComponent implements OnInit {
   }
 
   save() {
-    console.log('title ::: ', this.title);
+    this.todoListService
+      .createTodoList({
+        title: this.title,
+        todos: this.todos.map((todo) => ({ text_history: [todo.text] })),
+      })
+      .subscribe(() => {
+        this.activeModal.close('saved');
+      });
   }
 }

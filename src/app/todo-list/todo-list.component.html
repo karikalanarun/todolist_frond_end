@@ -28,76 +28,17 @@
   <div class="container">
     <h2>Yours</h2>
     <div class="card-columns">
-      <div class="card">
+      <div class="card" *ngFor="let todoList of userTodoLists">
         <div class="card-body">
           <div class="card-text">
-            <h5 class="ellipsis">First Lessons</h5>
-            <span>The decoration</span>
-            <br />
-            <span>Allocation and preservation</span>
-            <br />
-            <span>current status</span>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <div class="card-text">
-            <h5 class="ellipsis">Heading over the box</h5>
+            <h5 class="ellipsis">{{todoList.title}}</h5>
             <ul>
-              <li class="checklist">
+              <li class="checklist" *ngFor="let todo of todoList.todos">
                 <input id="option" type="checkbox" name="field" value="option" />
-                <label for="option"><span><span></span></span>First Line</label>
-                <ul>
-                  <li class="checklist">
-                    <input id="option" type="checkbox" name="field" value="option" />
-                    <label for="option"><span><span></span></span>second Line</label>
-                  </li>
-                  <li class="checklist">
-                    <input id="option" type="checkbox" name="field" value="option" />
-                    <label for="option"><span><span></span></span>third Line</label>
-                  </li>
-                </ul>
-              </li>
-              <li class="checklist">
-                <input id="option" type="checkbox" name="field" value="option" />
-                <label for="option"><span><span></span></span>another list</label>
-              </li>
-              <li class="checklist">
-                <input id="option" type="checkbox" name="field" value="option" />
-                <label for="option"><span><span></span></span>another list</label>
+                <label
+                  for="option"><span><span></span></span>{{todo.text_history[todo.text_history.length - 1]}}</label>
               </li>
             </ul>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <div class="card-text">
-            <h5 class="ellipsis">Forign currency</h5>
-            <ol>
-              <li>Australia</li>
-              <br />
-              <li>America</li>
-              <br />
-              <li>Aloska</li>
-              <br />
-              <li>Britine</li>
-              <br />
-              <li>Romania</li>
-            </ol>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <div class="card-text">
-            <h5 class="ellipsis">First Lessons</h5>
-            <span>The decoration</span>
-            <br />
-            <span>Allocation and preservation</span>
-            <br />
-            <span>current status</span>
           </div>
         </div>
       </div>
