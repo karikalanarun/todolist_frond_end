@@ -32,13 +32,18 @@ export class TodoListCreatePopUpComponent implements OnInit {
   }
 
   updateTodo(index, todo) {
-    console.log('index ::: ', index, todo);
     this.todos = [
       ...this.todos.slice(0, index),
       todo,
       ...this.todos.slice(index + 1),
     ];
-    console.log('this.todos ::: ', this.todos);
+  }
+
+  remove(index) {
+    this.todos = [
+      ...this.todos.slice(0, index),
+      ...this.todos.slice(index + 1),
+    ];
   }
 
   ngOnInit(): void {}

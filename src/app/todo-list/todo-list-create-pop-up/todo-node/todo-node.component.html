@@ -5,7 +5,7 @@
       <a class="dropdown-item" (click)="updateCompleted(true)" *ngIf="!todo.completed">Mark as completed</a>
       <a class="dropdown-item" (click)="updateCompleted(false)" *ngIf="todo.completed">Mark as not completed</a>
       <a class="dropdown-item" (click)='switchToEditMode()'>Edit</a>
-      <a class="dropdown-item" href="#">Remove</a>
+      <a class="dropdown-item" (click)="remove()">Remove</a>
     </ng-container>
     <ng-container *ngIf="mode.type==='edit'">
       <a class="dropdown-item" href="#">Save</a>

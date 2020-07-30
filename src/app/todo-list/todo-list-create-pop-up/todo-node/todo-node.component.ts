@@ -17,16 +17,24 @@ export class TodoNodeComponent implements OnInit {
   @Output()
   todoChange: EventEmitter<Todo> = new EventEmitter();
 
+  @Output()
+  removeTodo: EventEmitter<null> = new EventEmitter();
+
   constructor() {}
 
   ngOnInit(): void {}
 
   switchToEditMode() {
     this.mode = { type: 'edit' };
+    this.editedText = this.todo;
   }
 
   updateCompleted(completed: boolean) {
     this.todoChange.emit({ ...this.todo, completed });
+  }
+
+  remove() {
+    this.removeTodo.emit(null);
   }
 
   switchToShowMode() {

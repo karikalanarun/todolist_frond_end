@@ -34,7 +34,7 @@
         </ul>
       </li> -->
       <li class="checklist checkSize" *ngFor="let todo of todos;let i=index" style="display: flex;">
-        <app-todo-node [todo]="todo" (todoChange)="updateTodo(i, $event)"></app-todo-node>
+        <app-todo-node [todo]="todo" (todoChange)="updateTodo(i, $event)" (removeTodo)="remove(i)"></app-todo-node>
       </li>
     </ul>
   </div>
