@@ -44,6 +44,26 @@
       </div>
     </div>
   </div>
+  <div class="container" *ngFor="let frnds of frndsTodoLists">
+    <h2>{{frnds.user.first_name}} {{frnds.user.last_name}}</h2>
+    <div class="card-columns">
+      <div class="card" *ngFor="let todoList of frnds.lists" (click)="openEditor(todoList)">
+        <div class="card-body">
+          <div class="card-text">
+            <h5 class="ellipsis">{{ todoList.title }}</h5>
+            <ul>
+              <li class="checklist" *ngFor="let todo of todoList.todos">
+                <input id="option" type="checkbox" name="field" value="option" />
+                <label for="option"><span><span></span></span>{{
+                      todo.text_history[todo.text_history.length - 1]
+                    }}</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>

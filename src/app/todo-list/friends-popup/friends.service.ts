@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { flatMap, map } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { LoginService } from 'src/app/login/login.service';
 
 export type Response<T> = {
@@ -18,7 +18,7 @@ export type FriendRequest<T, K> = {
   raised_to: K;
 };
 
-type UserDetails = {
+export type UserDetails = {
   _id: string;
   first_name: string;
   last_name: string;
@@ -27,9 +27,13 @@ type UserDetails = {
 
 type RequestRaisedByCurrentUser = FriendRequest<string, UserDetails>;
 
-export type PendingRequestResponseRaised = Response<
-  RequestRaisedByCurrentUser[]
->;
+export type PendingFriendRequest = FriendRequest<UserDetails, string>;
+
+type PendingFriendRequestResponse = Response<PendingFriendRequest[]>;
+
+type PendingRequestResponseRaised = Response<RequestRaisedByCurrentUser[]>;
+
+type FriendListResponse = Response<UserDetails[]>;
 
 export type NonFriend = {
   _id: string;
@@ -57,7 +61,6 @@ const alreadySentRequests = (http: HttpClient) => {
 const getNonFriendsList = (http: HttpClient) => (
   nonfriends: NonFriend[]
 ): Observable<NonFriendList> => {
-  // return of(nonfriends.map((friend) => ({ ...friend, request_sent: false })));
   return alreadySentRequests(http)
     .pipe(map((res) => res.result))
     .pipe(
@@ -93,12 +96,30 @@ const createFriendRequest = (
   });
 };
 
+const getPendingReq = (http: HttpClient, url: string) => () => {
+  return http
+    .get<PendingFriendRequestResponse>(url)
+    .pipe(map((res) => res.result));
+};
+
+type URLFn = (id: string) => string;
+
+const acceptFrndReq = (http: HttpClient, url: URLFn) => (reqId: string) => {
+  return http.patch(url(reqId), {});
+};
+
+const fetchFriends = (http: HttpClient, url: string) => () => {
+  return http.get<FriendListResponse>(url).pipe(map((res) => res.result));
+};
+
 @Injectable({
   providedIn: 'root',
 })
 export class FriendsService {
   private getNonFriendsURL = `${environment.backend_url}/users/non-friends`;
   private createFrndReqURL = `${environment.backend_url}/friend_request`;
+  private getPendingReqURL = `${environment.backend_url}/friend_request/pending_requests`;
+  private getFrndsListURL = `${environment.backend_url}/users/friends`;
 
   constructor(private http: HttpClient, private loginService: LoginService) {}
   // alreadySentRequests = alreadySentRequests;
@@ -108,4 +129,10 @@ export class FriendsService {
     this.http,
     this.createFrndReqURL
   );
+  frndReqURL = (reqId: string) => {
+    return `${environment.backend_url}/friend_request/${reqId}/accept`;
+  };
+  getPendingReq = getPendingReq(this.http, this.getPendingReqURL);
+  acceptFrndReq = acceptFrndReq(this.http, this.frndReqURL);
+  fetchFriends = fetchFriends(this.http, this.getFrndsListURL);
 }

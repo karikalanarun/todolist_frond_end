@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TodoListCreatePopUpComponent } from './todo-list-create-pop-up/todo-list-create-pop-up.component';
 
-import { TodolistService, TodoList } from './todolist.service';
+import {
+  TodolistService,
+  TodoList,
+  ProperFriendsTodoList,
+} from './todolist.service';
 import { FriendsPopupComponent } from './friends-popup/friends-popup.component';
 
 @Component({
@@ -12,6 +16,8 @@ import { FriendsPopupComponent } from './friends-popup/friends-popup.component';
 })
 export class TodoListComponent implements OnInit {
   userTodoLists: TodoList[] = [];
+
+  frndsTodoLists: ProperFriendsTodoList[] = [];
 
   constructor(
     private modalService: NgbModal,
@@ -28,6 +34,9 @@ export class TodoListComponent implements OnInit {
     this.todolistService.getTodoListOfUSer().subscribe((todoList) => {
       this.userTodoLists = todoList;
     });
+    this.todolistService
+      .fetchFrndsTodoList()
+      .subscribe((lists) => (this.frndsTodoLists = lists));
   }
 
   openCreateBox() {

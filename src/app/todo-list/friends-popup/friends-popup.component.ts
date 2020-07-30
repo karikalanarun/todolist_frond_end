@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FriendsService, NonFriendList } from './friends.service';
+import {
+  FriendsService,
+  NonFriendList,
+  PendingFriendRequest,
+  UserDetails,
+} from './friends.service';
 
 @Component({
   selector: 'app-friends-popup',
@@ -11,8 +16,8 @@ export class FriendsPopupComponent implements OnInit {
   active = 1;
 
   nonFriends: NonFriendList = [];
-  friends = [];
-  pendingRequests = [];
+  friends: UserDetails[] = [];
+  pendingRequests: PendingFriendRequest[] = [];
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -25,12 +30,33 @@ export class FriendsPopupComponent implements OnInit {
     });
   }
 
+  loadPendingReqs() {
+    this.friendsService.getPendingReq().subscribe((frndReqs) => {
+      this.pendingRequests = frndReqs;
+    });
+  }
+
+  loadFriends() {
+    this.friendsService.fetchFriends().subscribe((frnds) => {
+      console.log('frnds ::: ', frnds);
+      this.friends = frnds;
+    });
+  }
+
   loadFriendsDetails() {
     this.loadNonFriends();
+    this.loadPendingReqs();
+    this.loadFriends();
   }
 
   createFrndRequest(to: string) {
     this.friendsService.createFriendRequest(to).subscribe(() => {
+      this.loadFriendsDetails();
+    });
+  }
+
+  acceptRequest(req: string) {
+    this.friendsService.acceptFrndReq(req).subscribe(() => {
       this.loadFriendsDetails();
     });
   }

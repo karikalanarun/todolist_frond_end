@@ -25,39 +25,34 @@
         </ng-template>
       </li>
       <li [ngbNavItem]="2">
-        <a ngbNavLink>Pending</a>
+        <a ngbNavLink>Pending - {{pendingRequests.length}}</a>
         <ng-template ngbNavContent>
-          <p>
-            Exercitation +1 labore velit, blog sartorial PBR leggings next level
-            wes anderson artisan four loko farm-to-table craft beer twee. Qui
-            photo booth letterpress, commodo enim craft beer mlkshk aliquip jean
-            shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda
-            labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia
-            yr, vero magna velit sapiente labore stumptown. Vegan fanny pack
-            odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY
-            ethical culpa terry richardson biodiesel. Art party scenester
-            stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed
-            echo park.
-          </p>
+          <div class="media border p-2 mb-2" *ngFor="let request of pendingRequests">
+            <img src="assets/avatar1.png" alt="John Doe" class="mr-3 rounded-circle" style="width: 60px;" />
+            <div class="media-body">
+              <h6>
+                {{request.raised_by.first_name}} {{request.raised_by.last_name}}<small><i></i></small>
+              </h6>
+              <span><i>{{request.raised_by.email}}</i></span>
+            </div>
+            <button class="btn btn-dark" (click)="acceptRequest(request._id)">
+              Accept
+            </button>
+          </div>
         </ng-template>
       </li>
       <li [ngbNavItem]="3">
-        <a ngbNavLink>Friends</a>
+        <a ngbNavLink>Friends - {{friends.length}}</a>
         <ng-template ngbNavContent>
-          <p>
-            Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget
-            sodales nibh elit id diam. Nulla facilisi. Donec egestas ligula
-            vitae odio interdum aliquet. Duis lectus turpis, luctus eget
-            tincidunt eu, congue et odio. Duis pharetra et nisl at faucibus.
-            Quisque luctus pulvinar arcu, et molestie lectus ultrices et. Sed
-            diam urna, egestas ut ipsum vel, volutpat volutpat neque. Praesent
-            fringilla tortor arcu. Vivamus faucibus nisl enim, nec tristique
-            ipsum euismod facilisis. Morbi ut bibendum est, eu tincidunt odio.
-            Orci varius natoque penatibus et magnis dis parturient montes,
-            nascetur ridiculus mus. Mauris aliquet odio ac lorem aliquet
-            ultricies in eget neque. Phasellus nec tortor vel tellus pulvinar
-            feugiat.
-          </p>
+          <div class="media border p-2 mb-2" *ngFor="let friend of friends">
+            <img src="assets/avatar1.png" alt="John Doe" class="mr-3 rounded-circle" style="width: 60px;" />
+            <div class="media-body">
+              <h6>
+                {{friend.first_name}} {{friend.last_name}}<small><i></i></small>
+              </h6>
+              <span><i>{{friend.email}}</i></span>
+            </div>
+          </div>
         </ng-template>
       </li>
     </ul>
