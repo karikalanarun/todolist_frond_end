@@ -10,6 +10,7 @@ import { TodoListComponent } from './todo-list/todo-list.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { TodoListCreatePopUpComponent } from './todo-list/todo-list-create-pop-up/todo-list-create-pop-up.component';
+import { FriendsPopupComponent } from './todo-list/friends-popup/friends-popup.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { TodoListCreatePopUpComponent } from './todo-list/todo-list-create-pop-u
     SignupComponent,
     TodoListComponent,
     TodoListCreatePopUpComponent,
+    FriendsPopupComponent,
   ],
   imports: [
     BrowserModule,

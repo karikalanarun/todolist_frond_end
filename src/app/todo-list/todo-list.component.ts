@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TodoListCreatePopUpComponent } from './todo-list-create-pop-up/todo-list-create-pop-up.component';
+
 import { TodolistService, TodoList } from './todolist.service';
+import { FriendsPopupComponent } from './friends-popup/friends-popup.component';
 
 @Component({
   selector: 'app-todo-list',
@@ -30,6 +32,15 @@ export class TodoListComponent implements OnInit {
 
   openCreateBox() {
     const modalRef = this.modalService.open(TodoListCreatePopUpComponent);
+    modalRef.result.then((value) => {
+      if (value === 'saved') {
+        this.loadTodos();
+      }
+    });
+  }
+
+  openFriendsPopup() {
+    const modalRef = this.modalService.open(FriendsPopupComponent);
     modalRef.result.then((value) => {
       if (value === 'saved') {
         this.loadTodos();

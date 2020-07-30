@@ -22,7 +22,6 @@ export class TodoListCreatePopUpComponent implements OnInit {
   ) {}
 
   addTodo() {
-    console.log('addtodo call aavuthu ::: ', this.currentTodo.trim());
     if (this.currentTodo.trim()) {
       this.todos = [
         ...this.todos,
