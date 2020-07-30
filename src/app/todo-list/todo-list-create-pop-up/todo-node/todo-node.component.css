@@ -1,0 +1,12 @@
+.moreVert {
+  font-size: large;
+  color: whitesmoke;
+  cursor: pointer;
+  margin-top: 7px;
+}
+#addInputs {
+  height: 24px;
+  width: auto;
+  margin-top: 3px;
+  background-color: lightslategray;
+}

@@ -38,6 +38,7 @@
 .listed {
   color: white;
   font-size: 30px;
+  cursor: pointer;
 }
 
 .checkSize {
@@ -58,9 +59,12 @@
 }
 
 .dropdown {
-  margin-top: 03px;
+  margin-top: 3px;
 }
 
 #addInput {
   height: 24px;
+}
+app-todo-node {
+  display: flex;
 }

@@ -5,21 +5,29 @@
   <div class="modal-body mt-2">
     <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
       <li [ngbNavItem]="1">
-        <a ngbNavLink>One</a>
+        <a ngbNavLink>People</a>
         <ng-template ngbNavContent>
-          <p>
-            Raw denim you probably haven't heard of them jean shorts Austin.
-            Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache
-            cliche tempor, williamsburg carles vegan helvetica. Reprehenderit
-            butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi,
-            qui irure terry richardson ex squid. Aliquip placeat salvia cillum
-            iphone. Seitan aliquip quis cardigan american apparel, butcher
-            voluptate nisi qui.
-          </p>
+          <div class="media border p-2 mb-2">
+            <img
+              src="assets/avatar1.png"
+              alt="John Doe"
+              class="mr-3 rounded-circle"
+              style="width: 60px;"
+            />
+            <div class="media-body">
+              <h6>
+                Ashokkumar K<small><i></i></small>
+              </h6>
+              <span><i>koshakkumar3@gmail.com</i></span>
+            </div>
+            <button class="btn btn-dark">
+              Add Friend
+            </button>
+          </div>
         </ng-template>
       </li>
       <li [ngbNavItem]="2">
-        <a ngbNavLink>Two</a>
+        <a ngbNavLink>Pending</a>
         <ng-template ngbNavContent>
           <p>
             Exercitation +1 labore velit, blog sartorial PBR leggings next level
@@ -36,7 +44,7 @@
         </ng-template>
       </li>
       <li [ngbNavItem]="3">
-        <a ngbNavLink>Three</a>
+        <a ngbNavLink>Friends</a>
         <ng-template ngbNavContent>
           <p>
             Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget
