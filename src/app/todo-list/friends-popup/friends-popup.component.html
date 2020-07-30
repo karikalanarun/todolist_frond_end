@@ -7,21 +7,19 @@
       <li [ngbNavItem]="1">
         <a ngbNavLink>People</a>
         <ng-template ngbNavContent>
-          <div class="media border p-2 mb-2">
-            <img
-              src="assets/avatar1.png"
-              alt="John Doe"
-              class="mr-3 rounded-circle"
-              style="width: 60px;"
-            />
+          <div class="media border p-2 mb-2" *ngFor="let nonFriend of nonFriends">
+            <img src="assets/avatar1.png" alt="John Doe" class="mr-3 rounded-circle" style="width: 60px;" />
             <div class="media-body">
               <h6>
-                Ashokkumar K<small><i></i></small>
+                {{nonFriend.first_name}} {{nonFriend.last_name}}<small><i></i></small>
               </h6>
-              <span><i>koshakkumar3@gmail.com</i></span>
+              <span><i>{{nonFriend.email}}</i></span>
             </div>
-            <button class="btn btn-dark">
+            <button class="btn btn-dark" *ngIf="!nonFriend.request_sent">
               Add Friend
+            </button>
+            <button class="btn btn-dark" *ngIf="nonFriend.request_sent">
+              Sent
             </button>
           </div>
         </ng-template>
