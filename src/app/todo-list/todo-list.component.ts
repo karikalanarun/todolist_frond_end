@@ -8,6 +8,7 @@ import {
   ProperFriendsTodoList,
 } from './todolist.service';
 import { FriendsPopupComponent } from './friends-popup/friends-popup.component';
+import { LoginService } from '../login/login.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -21,7 +22,8 @@ export class TodoListComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    private todolistService: TodolistService
+    private todolistService: TodolistService,
+    public loginService: LoginService
   ) {}
 
   ngOnInit() {

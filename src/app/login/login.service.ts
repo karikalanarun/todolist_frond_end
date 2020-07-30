@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import jwt_decode from 'jwt-decode';
+import { Router } from '@angular/router';
 
 type LoginDetails = {
   email: string;
@@ -43,7 +44,7 @@ export class LoginService {
   private loginURL = `${environment.backend_url}/user/login`;
   private signupURL = `${environment.backend_url}/user`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private route: Router) {}
 
   login = login<LoginDetails>(this.http, this.loginURL);
 
@@ -52,5 +53,13 @@ export class LoginService {
   getLoginUserID() {
     const authToken = localStorage.getItem('auth_token');
     return (jwt_decode(authToken) as any).id;
+  }
+  getLoginUserEmail() {
+    const authToken = localStorage.getItem('auth_token');
+    return (jwt_decode(authToken) as any).email;
+  }
+  logout() {
+    localStorage.removeItem('auth_token');
+    this.route.navigate(['login']);
   }
 }
