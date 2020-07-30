@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import jwt_decode from 'jwt-decode';
 
 type LoginDetails = {
   email: string;
@@ -47,4 +48,9 @@ export class LoginService {
   login = login<LoginDetails>(this.http, this.loginURL);
 
   signup = login<SignUpDetails>(this.http, this.signupURL);
+
+  getLoginUserID() {
+    const authToken = localStorage.getItem('auth_token');
+    return (jwt_decode(authToken) as any).id;
+  }
 }

@@ -21,13 +21,18 @@ export class FriendsPopupComponent implements OnInit {
 
   loadNonFriends() {
     this.friendsService.fetchNonFriends().subscribe((nonFriends) => {
-      console.log('nonFriends ::: ', nonFriends);
       this.nonFriends = nonFriends;
     });
   }
 
   loadFriendsDetails() {
     this.loadNonFriends();
+  }
+
+  createFrndRequest(to: string) {
+    this.friendsService.createFriendRequest(to).subscribe(() => {
+      this.loadFriendsDetails();
+    });
   }
 
   ngOnInit(): void {

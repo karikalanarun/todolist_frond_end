@@ -15,7 +15,7 @@
               </h6>
               <span><i>{{nonFriend.email}}</i></span>
             </div>
-            <button class="btn btn-dark" *ngIf="!nonFriend.request_sent">
+            <button class="btn btn-dark" *ngIf="!nonFriend.request_sent" (click)="createFrndRequest(nonFriend._id)">
               Add Friend
             </button>
             <button class="btn btn-dark" *ngIf="nonFriend.request_sent">
