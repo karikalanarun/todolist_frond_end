@@ -12,7 +12,7 @@ type NodeMode = { type: 'edit' } | { type: 'show' };
 export class TodoNodeComponent implements OnInit {
   mode: NodeMode = { type: 'show' };
   @Input() todo: Todo;
-  editedText = this.todo;
+  editedText = '';
 
   @Output()
   todoChange: EventEmitter<Todo> = new EventEmitter();
@@ -26,11 +26,15 @@ export class TodoNodeComponent implements OnInit {
 
   switchToEditMode() {
     this.mode = { type: 'edit' };
-    this.editedText = this.todo;
+    this.editedText = this.todo.text;
   }
 
   updateCompleted(completed: boolean) {
     this.todoChange.emit({ ...this.todo, completed });
+  }
+
+  updateText() {
+    this.todoChange.emit({ ...this.todo, text: this.editedText });
   }
 
   remove() {

@@ -39,6 +39,23 @@ export class TodoListComponent implements OnInit {
     });
   }
 
+  openEditor(todoList) {
+    console.log('todoList ::: ', todoList);
+    const modalRef = this.modalService.open(TodoListCreatePopUpComponent);
+    modalRef.componentInstance.mode = { type: 'edit', todo_id: todoList._id };
+    modalRef.componentInstance.title = todoList.title;
+    modalRef.componentInstance.currentTodo = '';
+    modalRef.componentInstance.todos = todoList.todos.map((todo) => ({
+      text: todo.text_history[todo.text_history.length - 1],
+      completed: todo.completed,
+    }));
+    modalRef.result.then((value) => {
+      if (value === 'saved') {
+        this.loadTodos();
+      }
+    });
+  }
+
   openFriendsPopup() {
     const modalRef = this.modalService.open(FriendsPopupComponent);
     modalRef.result.then((value) => {
