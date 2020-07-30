@@ -31,16 +31,7 @@ export class TodoListCreatePopUpComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    // .result.then(
-    //   (result) => {
-    //     this.closeResult = `Closed with: ${result}`;
-    //   },
-    //   (reason) => {
-    //     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    //   }
-    // );
-  }
+  ngOnInit(): void {}
 
   save() {
     this.todoListService

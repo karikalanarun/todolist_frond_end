@@ -8,3 +8,7 @@
   margin-top: 150px;
   color: white;
 }
+
+.strikeout {
+  text-decoration: line-through;
+}

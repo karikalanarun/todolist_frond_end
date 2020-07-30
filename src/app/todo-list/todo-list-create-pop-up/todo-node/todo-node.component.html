@@ -1,0 +1,11 @@
+<div class="dropdown">
+  <i class="material-icons moreVert" data-toggle="dropdown">more_vert</i>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#" *ngIf="!todo.completed">Mark as completed</a>
+    <a class="dropdown-item" href="#" *ngIf="todo.completed">Mark as not completed</a>
+    <a class="dropdown-item" href="#">Link 2</a>
+    <a class="dropdown-item" href="#">Link 3</a>
+  </div>
+</div>
+<span [class.strikeout]="todo.completed" *ngIf="mode === 'show'">{{todo.text}}</span>
+<!-- <app-todo-node *ngFor="let childTodo of todo.todos" ([todo])="childTodo"></app-todo-node> -->
