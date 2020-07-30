@@ -1,11 +1,22 @@
 <div class="dropdown">
   <i class="material-icons moreVert" data-toggle="dropdown">more_vert</i>
   <div class="dropdown-menu">
-    <a class="dropdown-item" href="#" *ngIf="!todo.completed">Mark as completed</a>
-    <a class="dropdown-item" href="#" *ngIf="todo.completed">Mark as not completed</a>
-    <a class="dropdown-item" href="#">Link 2</a>
-    <a class="dropdown-item" href="#">Link 3</a>
+    <ng-container *ngIf="mode.type==='show'">
+      <a class="dropdown-item" (click)="updateCompleted(true)" *ngIf="!todo.completed">Mark as completed</a>
+      <a class="dropdown-item" (click)="updateCompleted(false)" *ngIf="todo.completed">Mark as not completed</a>
+      <a class="dropdown-item" (click)='switchToEditMode()'>Edit</a>
+      <a class="dropdown-item" href="#">Remove</a>
+    </ng-container>
+    <ng-container *ngIf="mode.type==='edit'">
+      <a class="dropdown-item" href="#">Save</a>
+      <a class="dropdown-item" (click)="switchToShowMode()">Cancel</a>
+    </ng-container>
   </div>
+  <!-- <div class="dropdown-menu" *ngIf="mode.type === 'edit'">
+    <a class="dropdown-item" href="#">Save</a>
+    <a class="dropdown-item" (click)="switchToShowMode()">Cancel</a>
+  </div> -->
 </div>
-<span [class.strikeout]="todo.completed" *ngIf="mode === 'show'">{{todo.text}}</span>
-<!-- <app-todo-node *ngFor="let childTodo of todo.todos" ([todo])="childTodo"></app-todo-node> -->
+<span [class.strikeout]="todo.completed" *ngIf="mode.type === 'show'">{{todo.text}}</span>
+<input type="text" class="form-control" [(ngModel)]="editedText" *ngIf="mode.type === 'edit'" />
+<!-- <app-todo-node *ngFor=" let childTodo of todo.todos" ([todo])="childTodo"></app-todo-node> -->

@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-type Todo = { text: string; completed: true; todos?: Todo[] };
+type Todo = { text: string; completed: boolean; todos?: Todo[] };
 
-type NodeMode = 'edit' | 'show';
+type NodeMode = { type: 'edit' } | { type: 'show' };
 
 @Component({
   selector: 'app-todo-node',
@@ -10,8 +10,9 @@ type NodeMode = 'edit' | 'show';
   styleUrls: ['./todo-node.component.css'],
 })
 export class TodoNodeComponent implements OnInit {
-  mode: NodeMode = 'show';
+  mode: NodeMode = { type: 'show' };
   @Input() todo: Todo;
+  editedText = this.todo;
 
   @Output()
   todoChange: EventEmitter<Todo> = new EventEmitter();
@@ -19,4 +20,16 @@ export class TodoNodeComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  switchToEditMode() {
+    this.mode = { type: 'edit' };
+  }
+
+  updateCompleted(completed: boolean) {
+    this.todoChange.emit({ ...this.todo, completed });
+  }
+
+  switchToShowMode() {
+    this.mode = { type: 'show' };
+  }
 }
