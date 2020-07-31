@@ -12,6 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { TodoListCreatePopUpComponent } from './todo-list/todo-list-create-pop-up/todo-list-create-pop-up.component';
 import { FriendsPopupComponent } from './todo-list/friends-popup/friends-popup.component';
 import { TodoNodeComponent } from './todo-list/todo-list-create-pop-up/todo-node/todo-node.component';
+import { ToastsComponent } from './toasts/toasts.component';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { TodoNodeComponent } from './todo-list/todo-list-create-pop-up/todo-node
     TodoListCreatePopUpComponent,
     FriendsPopupComponent,
     TodoNodeComponent,
+    ToastsComponent,
   ],
   imports: [
     BrowserModule,

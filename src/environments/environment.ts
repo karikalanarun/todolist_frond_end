@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   backend_url: '/api',
   mockapi_url: '/mock-api',
+  SOCKET_ENDPOINT: 'http://localhost:3000',
 };
 
 /*

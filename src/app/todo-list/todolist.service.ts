@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, mapTo, tap } from 'rxjs/operators';
 import { UserDetails } from './friends-popup/friends.service';
-import { Observable } from 'rxjs';
+import { Observable, timer } from 'rxjs';
+import { SocketService } from '../socket.service';
+import { LoginService } from '../login/login.service';
 
 export type SingleTodoListResponse = { _id: string } & TodoList;
 
@@ -15,6 +17,7 @@ export type TodoListResponse = {
 
 export type Todo = {
   text_history: string[];
+  completed: boolean;
 };
 
 export type TodoList = {
@@ -42,15 +45,60 @@ export type ProperFriendsTodoList = {
   lists: FriendsTodoList[];
 };
 
-const updateTodoList = (http: HttpClient, url: string) => (
-  list: TodoList,
-  id: string
-) => {
-  return http.put(`${url}/${id}`, list);
+const updateTodoList = (
+  http: HttpClient,
+  url: string,
+  socket: SocketService,
+  loginService: LoginService
+) => (list: TodoList, id: string, owner: string) => {
+  return http.put(`${url}/${id}`, list).pipe(
+    tap(() => {
+      console.log('sent to server ::: ');
+      socket.sendTodoListEvent({
+        userId: loginService.getLoginUserID(),
+        title: list.title,
+        owner: owner === 'own' ? loginService.getLoginUserID() : owner,
+        event: 'updated',
+      });
+    })
+  );
 };
 
-const saveTodoList = (http: HttpClient, url: string) => (list: TodoList) => {
-  return http.post(url, list);
+const removeTodoList = (
+  http: HttpClient,
+  url: string,
+  socket: SocketService,
+  loginService: LoginService
+) => (id: string, title: string) => {
+  return http.delete(`${url}/${id}`).pipe(
+    tap(() => {
+      console.log('sent to server ::: ');
+      socket.sendTodoListEvent({
+        userId: loginService.getLoginUserID(),
+        title: title,
+        owner: loginService.getLoginUserID(),
+        event: 'removed',
+      });
+    })
+  );
+};
+
+const saveTodoList = (
+  http: HttpClient,
+  url: string,
+  socket: SocketService,
+  loginService: LoginService
+) => (list: TodoList) => {
+  return http.post(url, list).pipe(
+    tap(() => {
+      socket.sendTodoListEvent({
+        userId: loginService.getLoginUserID(),
+        title: list.title,
+        owner: loginService.getLoginUserID(),
+        event: 'created',
+      });
+    })
+  );
 };
 
 const getTodoListOfUSer = (http: HttpClient, url: string) => () => {
@@ -90,18 +138,46 @@ export class TodolistService {
   private createToDoListURL = `${environment.backend_url}/todolist`;
   private getTodoListURL = `${environment.backend_url}/todolist`;
   private updateTodoListURL = `${environment.backend_url}/todolist`;
+  private removeTodoListURL = `${environment.backend_url}/todolist`;
   private fetchFrndsTodoListURL = `${environment.backend_url}/todolist/friends`;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private socket: SocketService,
+    private loginService: LoginService
+  ) {
+    this.socket.setupSocket();
+  }
 
-  createTodoList = saveTodoList(this.http, this.createToDoListURL);
+  createTodoList = saveTodoList(
+    this.http,
+    this.createToDoListURL,
+    this.socket,
+    this.loginService
+  );
 
   getTodoListOfUSer = getTodoListOfUSer(this.http, this.getTodoListURL);
 
-  updateTodoList = updateTodoList(this.http, this.updateTodoListURL);
+  updateTodoList = updateTodoList(
+    this.http,
+    this.updateTodoListURL,
+    this.socket,
+    this.loginService
+  );
+
+  removeTodoList = removeTodoList(
+    this.http,
+    this.removeTodoListURL,
+    this.socket,
+    this.loginService
+  );
 
   fetchFrndsTodoList = fetchFrndsTodoList(
     this.http,
     this.fetchFrndsTodoListURL
   );
+
+  connectForNotification(): Observable<Object> {
+    return timer(5000).pipe(mapTo({ type: 'awesome' }));
+  }
 }

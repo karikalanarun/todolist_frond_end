@@ -1,5 +1,25 @@
 <div class="modal-data">
   <div class="modal-header">
+    <div class="dropdown">
+      <i class="material-icons moreVert mr-3" data-toggle="dropdown" *ngIf="canDelete()">more_vert</i>
+      <div class="dropdown-menu" *ngIf="mode.type === 'edit'">
+        <a class="dropdown-item" (click)="removeList()">Remove this list</a>
+        <!-- <ng-container *ngIf="mode.type === 'show'">
+          <a class="dropdown-item" (click)="updateCompleted(true)" *ngIf="!todo.completed">Mark as completed</a>
+          <a class="dropdown-item" (click)="updateCompleted(false)" *ngIf="todo.completed">Mark as not completed</a>
+          <a class="dropdown-item" (click)="switchToEditMode()">Edit</a>
+          <a class="dropdown-item" (click)="remove()">Remove</a>
+        </ng-container>
+        <ng-container *ngIf="mode.type === 'edit'">
+          <a class="dropdown-item" (click)="updateText()">Save</a>
+          <a class="dropdown-item" (click)="switchToShowMode()">Cancel</a>
+        </ng-container> -->
+      </div>
+      <!-- <div class="dropdown-menu" *ngIf="mode.type === 'edit'">
+        <a class="dropdown-item" href="#">Save</a>
+        <a class="dropdown-item" (click)="switchToShowMode()">Cancel</a>
+      </div> -->
+    </div>
     <h5 class="modal-title">
       <input type="text" placeholder="Write your title here" class="todo-modal-input" [(ngModel)]="title" />
     </h5>

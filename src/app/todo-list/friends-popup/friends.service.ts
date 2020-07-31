@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { flatMap, map } from 'rxjs/operators';
+import { flatMap, map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { LoginService } from 'src/app/login/login.service';
+import { SocketService } from 'src/app/socket.service';
 
 export type Response<T> = {
   status: number;
@@ -88,12 +89,22 @@ const fetchNonFriends = (http: HttpClient, url: string) => (): Observable<
 const createFriendRequest = (
   loginService: LoginService,
   http: HttpClient,
+  socket: SocketService,
   url: string
 ) => (raised_to: string) => {
-  return http.post(url, {
-    raised_by: loginService.getLoginUserID(),
-    raised_to,
-  });
+  return http
+    .post(url, {
+      raised_by: loginService.getLoginUserID(),
+      raised_to,
+    })
+    .pipe(
+      tap(() => {
+        socket.friendReqGiven({
+          raised_by: loginService.getLoginUserID(),
+          raised_to,
+        });
+      })
+    );
 };
 
 const getPendingReq = (http: HttpClient, url: string) => () => {
@@ -121,12 +132,17 @@ export class FriendsService {
   private getPendingReqURL = `${environment.backend_url}/friend_request/pending_requests`;
   private getFrndsListURL = `${environment.backend_url}/users/friends`;
 
-  constructor(private http: HttpClient, private loginService: LoginService) {}
+  constructor(
+    private http: HttpClient,
+    private loginService: LoginService,
+    private socket: SocketService
+  ) {}
   // alreadySentRequests = alreadySentRequests;
   fetchNonFriends = fetchNonFriends(this.http, this.getNonFriendsURL);
   createFriendRequest = createFriendRequest(
     this.loginService,
     this.http,
+    this.socket,
     this.createFrndReqURL
   );
   frndReqURL = (reqId: string) => {

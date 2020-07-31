@@ -6,7 +6,9 @@ import { TodolistService } from '../todolist.service';
 type Todo = { text: string; completed: boolean };
 type Todos = Todo[];
 
-type PopUpMode = { type: 'create' } | { type: 'edit'; todo_id: string };
+type PopUpMode =
+  | { type: 'create' }
+  | { type: 'edit'; todo_id: string; owner: 'own' | string };
 
 @Component({
   selector: 'app-todo-list-create-pop-up',
@@ -27,6 +29,13 @@ export class TodoListCreatePopUpComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private todoListService: TodolistService
   ) {}
+
+  canDelete(): boolean {
+    if (this.mode.type === 'edit') {
+      return this.mode.owner === 'own';
+    }
+    return false;
+  }
 
   addTodo() {
     if (this.currentTodo.trim()) {
@@ -55,12 +64,25 @@ export class TodoListCreatePopUpComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  removeList() {
+    if (this.mode.type === 'edit') {
+      this.todoListService
+        .removeTodoList(this.mode.todo_id, this.title)
+        .subscribe(() => {
+          this.activeModal.close('saved');
+        });
+    }
+  }
+
   save() {
     if (this.mode.type === 'create') {
       this.todoListService
         .createTodoList({
           title: this.title,
-          todos: this.todos.map((todo) => ({ text_history: [todo.text] })),
+          todos: this.todos.map((todo) => ({
+            text_history: [todo.text],
+            completed: todo.completed,
+          })),
         })
         .subscribe(() => {
           this.activeModal.close('saved');
@@ -70,9 +92,13 @@ export class TodoListCreatePopUpComponent implements OnInit {
         .updateTodoList(
           {
             title: this.title,
-            todos: this.todos.map((todo) => ({ text_history: [todo.text] })),
+            todos: this.todos.map((todo) => ({
+              text_history: [todo.text],
+              completed: todo.completed,
+            })),
           },
-          this.mode.todo_id
+          this.mode.todo_id,
+          this.mode.owner
         )
         .subscribe(() => {
           this.activeModal.close('saved');

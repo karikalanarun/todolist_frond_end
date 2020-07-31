@@ -38,7 +38,6 @@ export class FriendsPopupComponent implements OnInit {
 
   loadFriends() {
     this.friendsService.fetchFriends().subscribe((frnds) => {
-      console.log('frnds ::: ', frnds);
       this.friends = frnds;
     });
   }

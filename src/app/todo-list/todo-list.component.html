@@ -33,15 +33,20 @@
 
   <div class="container">
     <h2>Yours</h2>
+    <p>
+      <ngb-alert [dismissible]="false" *ngIf="userTodoLists.length === 0">
+        You have no todos right now. <strong>What about creating one?</strong>
+      </ngb-alert>
+    </p>
     <div class="card-columns">
-      <div class="card" *ngFor="let todoList of userTodoLists" (click)="openEditor(todoList)">
+      <div class="card" *ngFor="let todoList of userTodoLists" (click)="openEditor(todoList, 'own')">
         <div class="card-body">
           <div class="card-text">
             <h5 class="ellipsis">{{ todoList.title }}</h5>
             <ul>
               <li class="checklist" *ngFor="let todo of todoList.todos">
-                <input id="option" type="checkbox" name="field" value="option" />
-                <label for="option"><span><span></span></span>{{
+                <!-- <input id="option" type="checkbox" name="field" value="option" /> -->
+                <label for="option" [class.strikeout]="todo.completed"><span><span></span></span>{{
                       todo.text_history[todo.text_history.length - 1]
                     }}</label>
               </li>
@@ -53,15 +58,20 @@
   </div>
   <div class="container" *ngFor="let frnds of frndsTodoLists">
     <h2>{{frnds.user.first_name}} {{frnds.user.last_name}}</h2>
+    <p>
+      <ngb-alert [dismissible]="false" *ngIf="frnds.lists.length === 0">
+        {{frnds.user.first_name}} {{frnds.user.last_name}}'s has no todos as of now.
+      </ngb-alert>
+    </p>
     <div class="card-columns">
-      <div class="card" *ngFor="let todoList of frnds.lists" (click)="openEditor(todoList)">
+      <div class="card" *ngFor="let todoList of frnds.lists" (click)="openEditor(todoList, frnds.user._id)">
         <div class="card-body">
           <div class="card-text">
             <h5 class="ellipsis">{{ todoList.title }}</h5>
             <ul>
               <li class="checklist" *ngFor="let todo of todoList.todos">
-                <input id="option" type="checkbox" name="field" value="option" />
-                <label for="option"><span><span></span></span>{{
+                <!-- <input id="option" type="checkbox" name="field" value="option" /> -->
+                <label for="option" [class.strikeout]="todo.completed"><span><span></span></span>{{
                       todo.text_history[todo.text_history.length - 1]
                     }}</label>
               </li>
